@@ -13,7 +13,7 @@ public class Main extends JFrame implements Runnable {
     protected JButton inTextSendButton;
     protected boolean isOn;
 
-    Network network;
+    private Network network;
 
     public Main(String title, Network network) throws HeadlessException {
         super(title);
