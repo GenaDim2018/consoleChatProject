@@ -45,9 +45,9 @@ public class InMemoryAuthenticationProvider implements AuthenticationProvider {
     }
 
     @Override
-    public synchronized boolean isAdmin(String login) {
+    public synchronized boolean isAdmin(String username) {
         for (User user : users) {
-            if (user.getLogin().equals(login) && user.isAdmin()) return true;
+            if (user.isAdmin() && user.getUsername().equals(username)) return true;
         }
         return false;
     }

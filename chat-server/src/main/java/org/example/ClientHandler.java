@@ -149,9 +149,13 @@ public class ClientHandler {
     public String[] parseCommandName(String message) {
         String[] parsedMessage = new String[2];
         int firstIndex = message.indexOf(" ") + 1;
-        int lastIndex = message.indexOf(" ", firstIndex + 1);
-        parsedMessage[0] = message.substring(firstIndex, lastIndex);
-        parsedMessage[1] = message.substring(lastIndex + 1);
+        if (message.indexOf(" ", firstIndex + 1) == -1) {
+            parsedMessage[0] = message.substring(firstIndex);
+        } else {
+            int lastIndex = message.indexOf(" ", firstIndex + 1);
+            parsedMessage[0] = message.substring(firstIndex, lastIndex);
+            parsedMessage[1] = message.substring(lastIndex + 1);
+        }
         return parsedMessage;
     }
 }
