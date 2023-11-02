@@ -62,6 +62,7 @@ public class Server {
     public synchronized void kick(String username) {
         for (ClientHandler client : clients) {
             if (client.getUsername().equals(username)) {
+                client.disconnect();
                 clients.remove(client);
                 broadcastMessage("Клиент: " + username + " с позором удален из чата");
             }
