@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class DBConnection implements AutoCloseable {
-    private String url = "jdbc:postgresql://localhost:5432/items";
+    private String url = "jdbc:postgresql://localhost:5432/postgres";
     private Properties props = new Properties();
     private Connection connection;
     private String tableName = "users";
@@ -45,7 +45,7 @@ public class DBConnection implements AutoCloseable {
 
     public boolean checkIsAdmin(String username) throws SQLException {
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT username as username, is-admin as isAdmin FROM " + tableName + " WHERE username = '" + username + "';");
+        ResultSet rs = statement.executeQuery("SELECT username as username, isadmin as isAdmin FROM " + tableName + " WHERE username = '" + username + "';");
         if (rs.next() && rs.getBoolean("isAdmin")) {
             rs.close();
             statement.close();
@@ -60,7 +60,7 @@ public class DBConnection implements AutoCloseable {
     public boolean registerUser(String login, String password, String username, boolean isAdmin) throws SQLException {
         if (checkUserExist(username)) return false;
         Statement statement = connection.createStatement();
-        statement.executeUpdate("INSERT INTO users (login, password, username, is-admin) VALUES ('" + login + "','" + password + "','" + username + "'," + isAdmin + ");");
+        statement.executeUpdate("INSERT INTO users (login, password, username, isadmin) VALUES ('" + login + "','" + password + "','" + username + "'," + isAdmin + ");");
         statement.close();
         return true;
     }
